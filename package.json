@@ -1,0 +1,49 @@
+{
+  "name": "hyper-autoprofile",
+  "version": "0.1.0",
+  "description": "Extension for Hyper.app to profile term according to shell prompt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chabou/hyper-autoprofile.git"
+  },
+  "keywords": [
+    "hyper",
+    "hyper.app",
+    "hyperterm",
+    "shell",
+    "profile"
+  ],
+  "author": "CHaBou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chabou/hyper-autoprofile/issues"
+  },
+  "homepage": "https://github.com/chabou/hyper-autoprofile#readme",
+  "xo": {
+    "extends": "xo-react",
+    "esnext": true,
+    "space": true,
+    "env": [
+      "browser",
+      "node"
+    ],
+    "rules": {
+      "new-cap": 0,
+      "no-warning-comments": 0,
+      "complexity": 0,
+      "import/prefer-default-export": 0,
+      "react/prop-types": 0,
+      "react/jsx-no-bind": 0
+    },
+    "ignores": [
+      "build/**",
+      "app/dist/**",
+      "app/static/**",
+      "assets/**"
+    ]
+  }
+}
