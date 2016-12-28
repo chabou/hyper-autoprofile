@@ -1,5 +1,7 @@
 # hyper-autoprofile
-Extension for [Hyper.app](https://hyper.is) to configure terminal appearance according to current shell prompt
+Extension for [Hyper.app](https://hyper.is) to configure terminal appearance according to current shell prompt.
+
+![AutoProfile Demo](https://cloud.githubusercontent.com/assets/4137761/21533214/9028bf06-cd58-11e6-9086-2546a7f5563b.gif)
 
 ## Install
 
