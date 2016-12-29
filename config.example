@@ -2,8 +2,8 @@
   config : {
     autoProfile: {
       prompts: [{
-          // 'MyHost:~ me$ ' default MacOS bash prompt
-          pattern: '^(\\S+):([/~].*) ([a-z_][a-z0-9_\\-\\.]*[\\$]?)[\\$#]\\s*$',
+          // 'MyHost:Documents me$ ' default MacOS bash prompt
+          pattern: '^(\\S+):(.*) ([a-z_][a-z0-9_\\-\\.]*[\\$]?)[\\$#]\\s*$',
           hostname: 1,
           path: 2,
           username: 3

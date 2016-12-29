@@ -10,7 +10,7 @@ To install, edit `~/.hyper.js` and add `"hyper-autoprofile"` to `plugins`:
 ```
 plugins: [
   "hyper-autoprofile",
-], 
+],
 ```
 ## Configuration
 Add `autoProfile` in your `~/.hyper.js` config.
@@ -22,8 +22,8 @@ module.exports = {
     // other configs...
     autoProfile: {
       prompts: [{
-          // 'MyHost:~ me$ ' default MacOS bash prompt
-          pattern: '^(\\S+):([/~].*) ([a-z_][a-z0-9_\\-\\.]*[\\$]?)[\\$#]\\s*$',
+          // 'MyHost:Documents me$ ' default MacOS bash prompt
+          pattern: '^(\\S+):(.*) ([a-z_][a-z0-9_\\-\\.]*[\\$]?)[\\$#]\\s*$',
           hostname: 1,
           path: 2,
           username: 3
