@@ -13,8 +13,8 @@ plugins: [
 ], 
 ```
 ## Configuration
-Add `overlay` in your `~/.hyper.js` config.
-The configuration below shows the two differents sections : `prompts` and `profiles` :
+Add `autoProfile` in your `~/.hyper.js` config.
+The configuration below shows the two differents sections `prompts` and `profiles`:
 
 ```js
 module.exports = {
@@ -62,9 +62,9 @@ module.exports = {
 ```
 ### autoProfile.prompts
 
-This section defines different patterns for parsing prompt components : username, host, path.
+This section defines different patterns for parsing prompt components: username, host, path.
 
-For example, define a pattern for MacOS bash default prompt :
+For example, define a pattern for MacOS bash default prompt:
 ```
 {
   // 'MyHost:~ me$ '
@@ -87,7 +87,7 @@ This section is an ordered array of potential Profile. A Profile is composed by 
 * `'@host:/path'` to specify `host` and `path`
 * `'user@host:/path'` to specify `user` and `host` and `path`
 
-`user` and `host` components are strictly compared, `path` matches if it is included in prompt path. `'/tmp'` path will match `'/tmp'` and `'/path/to/tmp/subpath'`.
+`user` and `host` components are strictly compared, `path` matches if it is included in prompt path: `'/tmp'` path will match `'/tmp'` and `'/path/to/tmp/subpath'`.
 
 All other properties of this section will be applied to Term if a trigger is matched. It could be any property of the main config section like `backgroundColor`, `cursorColor`, `fontSize`...
 
