@@ -62,7 +62,7 @@ module.exports = {
 ```
 ### autoProfile.prompts
 
-This section defines different pattern for parsing prompt components : username, host, path.
+This section defines different patterns for parsing prompt components : username, host, path.
 
 For example, define a pattern for MacOS bash default prompt :
 ```
