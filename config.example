@@ -13,6 +13,12 @@
           username: 1,
           hostname: 2,
           path: 3
+        },{
+          // 'me@MyHost ~> ' default fish prompt
+          pattern: '^([a-z_][a-z0-9_\\-\\.]*[\\$]?)@(\\S+) ([\\/~].*)>\\s*$',
+          username: 1,
+          hostname: 2,
+          path: 3
         }
       ],
       profiles: [{
@@ -34,7 +40,7 @@
           backgroundColor: '#004'
         }
       ],
-      stripAnsiColors: true //default
+      stripAnsiSequences: true //default
     }
   }
 }

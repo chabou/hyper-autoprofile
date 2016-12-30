@@ -33,6 +33,12 @@ module.exports = {
           username: 1,
           hostname: 2,
           path: 3
+        },{
+          // 'me@MyHost ~> ' default fish prompt
+          pattern: '^([a-z_][a-z0-9_\\-\\.]*[\\$]?)@(\\S+) ([\\/~].*)[>#]\\s*',
+          username: 1,
+          hostname: 2,
+          path: 3
         }
       ],
       profiles: [{
@@ -91,9 +97,9 @@ This section is an ordered array of potential Profile. A Profile is composed by 
 
 All other properties of this section will be applied to Term if a trigger is matched. It could be any property of the main config section like `backgroundColor`, `cursorColor`, `fontSize`...
 
-### autoProfile.stripAnsiColors (Default: true)
+### autoProfile.stripAnsiSequences (Default: true)
 If enabled, ANSI escape sequences are stripped from input before trying to match triggers.
-See [here](http://ascii-table.com/ansi-escape-sequences.php) for more details.
+See [here](http://ascii-table.com/ansi-escape-sequences-vt-100.php) for more details.
 
 ## Caveat
 

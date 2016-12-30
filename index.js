@@ -56,7 +56,9 @@ const newline = {};
 exports.middleware = store => next => action => {
   if (action.type === 'SESSION_PTY_DATA') {
     let {data, uid} = action;
-    data = data.replace(/.*\033\[2J/mg,''); // Remove all char before ANSI sequence to erase line 'ESC[2J'
+    data = data.replace(/[\n\r]?.*\033\[2J/mg,''); // Remove all char before ANSI sequence to erase line 'ESC[2J'
+    data = data.replace(/.*\033\[[12]K/mg,''); // Remove all char before ANSI sequence to erase line 'ESC[2K'
+    data = data.replace(/\033\[K.*/mg,''); //Remove all char after ANSI sequence to erase end on line
     data = data.replace(/\033\]0.*?\007/mg,''); // Remove ANSI sequence trick to set xterm title
 
     // Parse data only if it is a new line or if it contains a line beginning
@@ -71,8 +73,8 @@ exports.middleware = store => next => action => {
 
     // If there is a '\n' or '\r' at the end of line, next data is a newline
     const lastChar = data.charAt(data.length - 1);
-    newline[uid] = (lastChar === '\n' || lastChar === '\r');
-
+    newline[uid] = (lastChar === '\n' ||
+                    lastChar === '\r');
 
     const config = store.getState().ui.autoProfile ? store.getState().ui.autoProfile.config : {};
     if (!config || !config.prompts || config.prompts.length === 0) {
@@ -80,10 +82,10 @@ exports.middleware = store => next => action => {
       return next(action);
     }
 
-    if (config.stripAnsiColors !== false) {
-      data = data.replace(/\033\[[0-9;]+m/mg,'');
+    if (config.stripAnsiSequences !== false) {
+      data = data.replace(/\033\[[0-9;]*m/mg,''); //Color ESC[0;1m
+      data = data.replace(/\033[\(\)][AB0-2;]/mg,''); //Font ESC(B and ESC)B
     }
-
     const promptInfos = getPromptInfos(config.prompts, data);
     if (!promptInfos) {
       return next(action);
