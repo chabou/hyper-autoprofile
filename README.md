@@ -5,6 +5,14 @@ Extension for [Hyper.app](https://hyper.is) to configure terminal appearance acc
 
 ## Install
 
+### Using [hpm](https://github.com/zeit/hpm)
+
+```
+hpm install hyper-autoprofile
+```
+
+### Manually
+
 To install, edit `~/.hyper.js` and add `"hyper-autoprofile"` to `plugins`:
 
 ```
