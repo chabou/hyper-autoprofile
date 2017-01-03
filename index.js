@@ -71,8 +71,8 @@ const newline = {};
 exports.middleware = store => next => action => {
   if (action.type === 'SESSION_PTY_DATA') {
     let {data, uid} = action;
-    data = data.replace(/[\n\r]?.*\033\[2J/mg,''); // Remove all char before ANSI sequence to erase line 'ESC[2J'
-    data = data.replace(/[\n\r]?.*\033\[J/mg,''); // Remove all char before ANSI sequence to erase line 'ESC[J'
+    data = data.replace(/[\n\r]?.*\033\[2J/mg,'\n'); // Remove all char before ANSI sequence to erase line 'ESC[2J'
+    data = data.replace(/[\n\r]?.*\033\[J/mg,'\n'); // Remove all char before ANSI sequence to erase line 'ESC[J'
     data = data.replace(/.*\033\[[12]K/mg,''); // Remove all char before ANSI sequence to erase line 'ESC[2K'
     data = data.replace(/\033\[K.*/mg,''); //Remove all char after ANSI sequence to erase end on line
     data = data.replace(/\033\]0.*?\007/mg,''); // Remove ANSI sequence trick to set xterm title
@@ -83,7 +83,8 @@ exports.middleware = store => next => action => {
         data.indexOf('\r') === -1 &&
         data.indexOf('\033[?1034h') === -1 && // After a sudo
         data.indexOf('\033[K') === -1 && // ANSI sequence to erase a line
-        data.indexOf('\033[2J') === -1) { // ANSI sequence to erase display
+        data.indexOf('\033[2J') === -1 && // ANSI sequence to erase display
+        data.indexOf('\033[J') === -1) { // ANSI sequence to erase display
       return next(action);
     }
 

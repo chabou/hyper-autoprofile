@@ -47,6 +47,14 @@ module.exports = {
           username: 1,
           hostname: 2,
           path: 3
+        },{
+          // 'MyHost% ' default zsh prompt
+          pattern: '^(\\S+)% ',
+          hostname: 1
+        },{
+          // '➜  ~' default oh-my-zsh prompt (robbyrussell theme)
+          pattern: '^➜  ([\\/~].*) ',
+          path: 1
         }
       ],
       profiles: [{
