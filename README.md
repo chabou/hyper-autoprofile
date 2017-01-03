@@ -68,7 +68,8 @@ module.exports = {
           backgroundColor: '#004'
         }
       ],
-      stripAnsiColors: true //default
+      stripAnsiColors: true, //default
+      debug: false //default
     }
   }
   //...
@@ -108,6 +109,9 @@ All other properties of this section will be applied to Term if a trigger is mat
 ### autoProfile.stripAnsiSequences (Default: true)
 If enabled, ANSI escape sequences are stripped from input before trying to match triggers.
 See [here](http://ascii-table.com/ansi-escape-sequences-vt-100.php) for more details.
+
+### autoProfile.debug (Default: false)
+If enabled, debug informations are written to console
 
 ## Caveat
 

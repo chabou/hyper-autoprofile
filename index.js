@@ -1,5 +1,15 @@
+let debug_enabled_ = false;
+
+const debug = function () {
+  if (debug_enabled_){
+    [].unshift.call(arguments, "|AUOTPROFILE|");
+    console.log.apply(this, arguments);
+  }
+}
+
 const getPromptInfos = function (prompts, data) {
   let result;
+  debug('getPromptInfos: looking for prompt in "' + data + '" -> "' + encodeURI(data) + "'");
   prompts.forEach(prompt => {
     if (result || !prompt.pattern || prompt.pattern.length === 0) {
       return;
@@ -16,6 +26,9 @@ const getPromptInfos = function (prompts, data) {
       };
     }
   });
+  if (result) {
+    debug('getPromptInfos: found', result);
+  }
   return result;
 };
 
@@ -30,6 +43,7 @@ const getProfile = function (profiles, infos) {
       if (match) {
         return;
       }
+      debug('getProfile: testing trigger', trigger);
       const keys = Object.keys(trigger);
       for (let i = 0; i < keys.length; i += 1) {
         let key = keys[i];
@@ -45,6 +59,7 @@ const getProfile = function (profiles, infos) {
     });
     if (match) {
       result = profile;
+      debug('getProfile: match for profile', profile);
     }
   });
 
@@ -156,6 +171,8 @@ exports.reduceUI = (state, action) => {
     case 'CONFIG_LOAD':
     case 'CONFIG_RELOAD': {
       const config = formatConfiguration(action.config.autoProfile);
+      debug_enabled_ = action.config.autoProfile.debug || false;
+      debug('config loaded:', JSON.stringify(config));
       return state.set('autoProfile', {config: config, sessions: {}});
     }
     case 'AUTOPROFILE_SET': {
