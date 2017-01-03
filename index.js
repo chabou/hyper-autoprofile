@@ -33,7 +33,7 @@ const getProfile = function (profiles, infos) {
       const keys = Object.keys(trigger);
       for (let i = 0; i < keys.length; i += 1) {
         let key = keys[i];
-        if (key === 'path') {
+        if (key === 'path' && infos[key]) {
           if (infos[key].indexOf(trigger[key]) === -1) {
             return;
           }
