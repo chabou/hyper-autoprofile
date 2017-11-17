@@ -2,7 +2,7 @@ let debug_enabled_ = false;
 
 const debug = function () {
   if (debug_enabled_){
-    [].unshift.call(arguments, "|AUOTPROFILE|");
+    [].unshift.call(arguments, "|AUTOPROFILE|");
     console.log.apply(this, arguments);
   }
 }
