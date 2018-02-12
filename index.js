@@ -172,7 +172,7 @@ exports.reduceUI = (state, action) => {
     case 'CONFIG_LOAD':
     case 'CONFIG_RELOAD': {
       const config = formatConfiguration(action.config.autoProfile);
-      debug_enabled_ = action.config.autoProfile.debug || false;
+      debug_enabled_ = config.debug || false;
       debug('config loaded:', JSON.stringify(config));
       return state.set('autoProfile', {config: config, sessions: {}});
     }
