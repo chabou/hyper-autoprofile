@@ -4,7 +4,10 @@
   "description": "Extension for Hyper.app to profile term according to shell prompt",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+    "test": "yarn run lint",
+    "precommit": "yarn run test",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -15,7 +18,8 @@
     "hyper.app",
     "hyperterm",
     "shell",
-    "profile"
+    "profile",
+    "hyper-plugin"
   ],
   "author": "CHaBou",
   "license": "MIT",
@@ -23,27 +27,58 @@
     "url": "https://github.com/chabou/hyper-autoprofile/issues"
   },
   "homepage": "https://github.com/chabou/hyper-autoprofile#readme",
-  "xo": {
-    "extends": "xo-react",
-    "esnext": true,
-    "space": true,
-    "env": [
-      "browser",
-      "node"
+  "eslintConfig": {
+    "plugins": [
+      "prettier"
     ],
-    "rules": {
-      "new-cap": 0,
-      "no-warning-comments": 0,
-      "complexity": 0,
-      "import/prefer-default-export": 0,
-      "react/prop-types": 0,
-      "react/jsx-no-bind": 0
+    "extends": [
+      "eslint:recommended",
+      "prettier"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 8,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "impliedStrict": true,
+        "experimentalObjectRestSpread": true
+      },
+      "allowImportExportEverywhere": true
     },
-    "ignores": [
-      "build/**",
-      "app/dist/**",
-      "app/static/**",
-      "assets/**"
-    ]
+    "env": {
+      "es6": true,
+      "node": true,
+      "browser": true
+    },
+    "rules": {
+      "func-names": [
+        "error",
+        "as-needed"
+      ],
+      "no-shadow": "error",
+      "no-extra-semi": 0,
+      "no-console": 0,
+      "prettier/prettier": [
+        "error",
+        {
+          "printWidth": 120,
+          "tabWidth": 2,
+          "singleQuote": true,
+          "trailingComma": "none",
+          "bracketSpacing": false,
+          "semi": true,
+          "useTabs": false,
+          "parser": "babylon",
+          "jsxBracketSameLine": false
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "husky": "^0.14.3",
+    "prettier": "^1.11.1",
+    "standard-version": "^4.3.0"
   }
 }

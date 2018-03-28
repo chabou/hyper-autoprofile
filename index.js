@@ -1,13 +1,13 @@
 let debug_enabled_ = false;
 
-const debug = function () {
-  if (debug_enabled_){
-    [].unshift.call(arguments, "|AUTOPROFILE|");
+const debug = function() {
+  if (debug_enabled_) {
+    [].unshift.call(arguments, '|AUTOPROFILE|');
     console.log.apply(this, arguments);
   }
-}
+};
 
-const getPromptInfos = function (prompts, data) {
+const getPromptInfos = function(prompts, data) {
   let result;
   debug('getPromptInfos: looking for prompt in "' + data + '" -> "' + encodeURI(data) + "'");
   prompts.forEach(prompt => {
@@ -32,7 +32,7 @@ const getPromptInfos = function (prompts, data) {
   return result;
 };
 
-const getProfile = function (profiles, infos) {
+const getProfile = function(profiles, infos) {
   let result;
   profiles.forEach(profile => {
     if (result || !profile.triggers || profile.triggers.length === 0) {
@@ -71,27 +71,29 @@ const newline = {};
 exports.middleware = store => next => action => {
   if (action.type === 'SESSION_PTY_DATA') {
     let {data, uid} = action;
-    data = data.replace(/[\n\r]?.*\033\[2J/mg,'\n'); // Remove all char before ANSI sequence to erase line 'ESC[2J'
-    data = data.replace(/[\n\r]?.*\033\[J/mg,'\n'); // Remove all char before ANSI sequence to erase line 'ESC[J'
-    data = data.replace(/.*\033\[[12]K/mg,''); // Remove all char before ANSI sequence to erase line 'ESC[2K'
-    data = data.replace(/\033\[K.*/mg,''); //Remove all char after ANSI sequence to erase end on line
-    data = data.replace(/\033\]0.*?\007/mg,''); // Remove ANSI sequence trick to set xterm title
+    data = data.replace(/[\n\r]?.*\033\[2J/gm, '\n'); // Remove all char before ANSI sequence to erase line 'ESC[2J'
+    data = data.replace(/[\n\r]?.*\033\[J/gm, '\n'); // Remove all char before ANSI sequence to erase line 'ESC[J'
+    data = data.replace(/.*\033\[[12]K/gm, ''); // Remove all char before ANSI sequence to erase line 'ESC[2K'
+    data = data.replace(/\033\[K.*/gm, ''); //Remove all char after ANSI sequence to erase end on line
+    data = data.replace(/\033\]0.*?\007/gm, ''); // Remove ANSI sequence trick to set xterm title
 
     // Parse data only if it is a new line or if it contains a line beginning
-    if (!newline[uid] &&
-        data.indexOf('\n') === -1 &&
-        data.indexOf('\r') === -1 &&
-        data.indexOf('\033[?1034h') === -1 && // After a sudo
-        data.indexOf('\033[K') === -1 && // ANSI sequence to erase a line
-        data.indexOf('\033[2J') === -1 && // ANSI sequence to erase display
-        data.indexOf('\033[J') === -1) { // ANSI sequence to erase display
+    if (
+      !newline[uid] &&
+      data.indexOf('\n') === -1 &&
+      data.indexOf('\r') === -1 &&
+      data.indexOf('\x1b[?1034h') === -1 && // After a sudo
+      data.indexOf('\x1b[K') === -1 && // ANSI sequence to erase a line
+      data.indexOf('\x1b[2J') === -1 && // ANSI sequence to erase display
+      data.indexOf('\x1b[J') === -1
+    ) {
+      // ANSI sequence to erase display
       return next(action);
     }
 
     // If there is a '\n' or '\r' at the end of line, next data is a newline
     const lastChar = data.charAt(data.length - 1);
-    newline[uid] = (lastChar === '\n' ||
-                    lastChar === '\r');
+    newline[uid] = lastChar === '\n' || lastChar === '\r';
 
     const config = store.getState().ui.autoProfile ? store.getState().ui.autoProfile.config : {};
     if (!config || !config.prompts || config.prompts.length === 0) {
@@ -100,8 +102,8 @@ exports.middleware = store => next => action => {
     }
 
     if (config.stripAnsiSequences !== false) {
-      data = data.replace(/\033\[[0-9;]*m/mg,''); //Color ESC[0;1m
-      data = data.replace(/\033[\(\)][AB0-2;]/mg,''); //Font ESC(B and ESC)B
+      data = data.replace(/\033\[[0-9;]*m/gm, ''); //Color ESC[0;1m
+      data = data.replace(/\033[()][AB0-2;]/gm, ''); //Font ESC(B and ESC)B
     }
     const promptInfos = getPromptInfos(config.prompts, data);
     if (!promptInfos) {
@@ -117,7 +119,7 @@ exports.middleware = store => next => action => {
   next(action);
 };
 
-const parseTrigger = function (trigger) {
+const parseTrigger = function(trigger) {
   const result = {};
   const idxAt = trigger.indexOf('@');
   const idxColon = trigger.indexOf(':');
@@ -128,7 +130,7 @@ const parseTrigger = function (trigger) {
   }
   // hostname
   if (idxAt >= 0 && idxAt < trigger.length - 1) {
-    result.hostname = trigger.substr(idxAt + 1, ((idxColon >= 0) ? idxColon : trigger.length) - idxAt - 1);
+    result.hostname = trigger.substr(idxAt + 1, (idxColon >= 0 ? idxColon : trigger.length) - idxAt - 1);
   }
   // path
   if (idxAt === -1 || (idxColon >= 0 && idxColon < trigger.length - 1)) {
@@ -147,7 +149,7 @@ function formatConfiguration(autoProfileConfig) {
   formattedConfig.prompts = autoProfileConfig.prompts;
   const profiles = [];
   autoProfileConfig.profiles.forEach(profile => {
-    const formattedProfile = {triggers:[], style:{}};
+    const formattedProfile = {triggers: [], style: {}};
     if (!profile.triggers || profile.triggers.length === 0) {
       return;
     }
@@ -157,9 +159,8 @@ function formatConfiguration(autoProfileConfig) {
         return;
       }
       formattedProfile.triggers.push(criteria);
-
     });
-    formattedProfile.style = Object.assign({},profile);
+    formattedProfile.style = Object.assign({}, profile);
     delete formattedProfile.style.triggers;
     profiles.push(formattedProfile);
   });
