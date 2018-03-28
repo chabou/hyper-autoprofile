@@ -1,6 +1,6 @@
 {
   "name": "hyper-autoprofile",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Extension for Hyper.app to profile term according to shell prompt",
   "main": "index.js",
   "scripts": {
