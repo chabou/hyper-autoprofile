@@ -69,6 +69,13 @@ module.exports = {
           // '➜  ~' default oh-my-zsh prompt (robbyrussell theme)
           pattern: "^➜  ([\\/~].*) ",
           path: 1
+        },
+        {
+          // 'me@MyHost MINGW64 ~ (master) ' default git-bash prompt on Windows
+          pattern: "^([a-z_][a-z0-9_\\-\\.]*[\\$]?)@(\\S+) MINGW64 ([\\/~].*)(\s|$)",
+          username: 1,          
+          hostname: 2,          
+          path: 3        
         }
       ],
       profiles: [
