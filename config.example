@@ -48,7 +48,8 @@
           backgroundColor: '#004'
         }
       ],
-      stripAnsiSequences: true //default
+      stripAnsiSequences: true, //default
+      debug: false, //default
     }
   }
 }
