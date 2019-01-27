@@ -92,7 +92,7 @@ module.exports = {
           backgroundColor: "#004"
         }
       ],
-      stripAnsiColors: true, //default
+      stripAnsiSequences: true, //default
       debug: false //default
     }
   }
@@ -103,6 +103,17 @@ module.exports = {
 ### autoProfile.prompts
 
 This section defines different patterns for parsing prompt components: username, host, path.
+
+Note that `pattern` is a string literal passed to the `RegExp()`
+constructor, so remember to escape backslashes in your regexp. For
+example, if you used a site like [regex101.com](https://regex101.com)
+to verify that your regexp `/\[(\w+):\s*(\w+)\](\s*\$)/` is correct,
+you would double each backslash and write the pattern as:
+
+```
+pattern: '\\[(\\w+):\\s*(\\w+)\\](\\s*\\$)',
+```
+The values for `hostname`, `username`, and `pattern` are indexes into the match array returned by `RegExp#exec`.
 
 For example, define a pattern for MacOS bash default prompt:
 
@@ -140,7 +151,7 @@ See [here](http://ascii-table.com/ansi-escape-sequences-vt-100.php) for more det
 
 ### autoProfile.debug (Default: false)
 
-If enabled, debug informations are written to console
+If enabled, debug information is written to the DevTools console
 
 ## Caveat
 

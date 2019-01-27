@@ -146,6 +146,8 @@ function formatConfiguration(autoProfileConfig) {
   if (!autoProfileConfig || !autoProfileConfig.prompts || !autoProfileConfig.profiles) {
     return formattedConfig;
   }
+  formattedConfig.debug = autoProfileConfig.debug;
+  formattedConfig.stripAnsiSequences = autoProfileConfig.stripAnsiSequences;
   formattedConfig.prompts = autoProfileConfig.prompts;
   const profiles = [];
   autoProfileConfig.profiles.forEach(profile => {
