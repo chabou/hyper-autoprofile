@@ -1,6 +1,6 @@
 {
   "name": "hyper-autoprofile",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Extension for Hyper.app to profile term according to shell prompt",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,14 @@
     "type": "git",
     "url": "git+https://github.com/chabou/hyper-autoprofile.git"
   },
-  "keywords": ["hyper", "hyper.app", "hyperterm", "shell", "profile", "hyper-plugin"],
+  "keywords": [
+    "hyper",
+    "hyper.app",
+    "hyperterm",
+    "shell",
+    "profile",
+    "hyper-plugin"
+  ],
   "author": "CHaBou",
   "license": "MIT",
   "bugs": {
@@ -21,8 +28,13 @@
   },
   "homepage": "https://github.com/chabou/hyper-autoprofile#readme",
   "eslintConfig": {
-    "plugins": ["prettier"],
-    "extends": ["eslint:recommended", "prettier"],
+    "plugins": [
+      "prettier"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "prettier"
+    ],
     "parserOptions": {
       "ecmaVersion": 8,
       "sourceType": "module",
@@ -38,7 +50,10 @@
       "browser": true
     },
     "rules": {
-      "func-names": ["error", "as-needed"],
+      "func-names": [
+        "error",
+        "as-needed"
+      ],
       "no-shadow": "error",
       "no-extra-semi": 0,
       "no-console": 0,
